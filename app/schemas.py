@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import List, Dict
 
+
 # Entrada de datos
 class DatosBTC(BaseModel):
     lags: List[float] = Field(
@@ -13,6 +14,7 @@ class DatosBTC(BaseModel):
         description="Tipo de volatilidad a predecir. Debe ser 7, 14, 21 o 28 días",
         json_schema_extra=7
     )
+    
 
 # Respuesta de predicción
 class RespuestaPrediccion(BaseModel):
@@ -20,6 +22,7 @@ class RespuestaPrediccion(BaseModel):
     volatilidad_predicha: List[float] = Field(..., description="Los valores de volatilidad predicha para los próximos 7 días")
     horizontes: List[str] = Field(..., description="Nombre de cada horizonte de predicción (H1, H2, …) correspondiente a cada valor predicho")
     dias_pronostico: int = Field(..., description="Cantidad de días en el horizonte de pronóstico (siempre 7)")
+    
 
 # Información del modelo
 class InfoModelo(BaseModel):

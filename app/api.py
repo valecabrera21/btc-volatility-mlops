@@ -1,6 +1,5 @@
 # Librerías necesarias
 from fastapi import FastAPI, HTTPException
-from typing import List
 import joblib
 import numpy as np
 import os
@@ -14,6 +13,7 @@ app = FastAPI(
     description="Predicciones de volatilidad de Bitcoin usando modelos MLP entrenados por ventana de días.",
     version="1.0.0"
 )
+
 
 # --- Función helper para convertir tipos numpy a tipos nativos de Python ---
 def convertir_numpy(obj):
@@ -29,6 +29,7 @@ def convertir_numpy(obj):
         return [convertir_numpy(item) for item in obj]
     return obj
 
+
 # --- Cargar modelos ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 modelos = {}
@@ -40,6 +41,7 @@ for vol in [7, 14, 21, 28]:
         print(f"✓ Modelo volatilidad {vol} días cargado")
     else:
         print(f"✗ No encontrado: {model_path}")
+        
 
 # --- Ruta raíz ---
 @app.get("/", summary="Raíz de la API", tags=["General"])
@@ -48,6 +50,7 @@ def raiz():
         "mensaje": "API de Predicción de Volatilidad BTC",
         "modelos_disponibles": [f"Volatilidad {v} días" for v in modelos.keys()]
     }
+    
 
 # --- Endpoint de predicción ---
 @app.post("/predecir", response_model=RespuestaPrediccion, summary="Predicción de volatilidad", tags=["Predicción"])
@@ -57,6 +60,7 @@ def predecir(data: DatosBTC):
             status_code=400,
             detail=f"Modelo para {data.tipo_volatilidad} días no disponible. Modelos disponibles: {list(modelos.keys())}"
         )
+        
 
     modelo_data = modelos[data.tipo_volatilidad]
     modelo = modelo_data['modelo']
@@ -101,5 +105,3 @@ def info_modelo(dias_volatilidad: int):
         parametros=parametros,
         metricas=metricas
     )
-
-
