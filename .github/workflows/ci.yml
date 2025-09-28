@@ -14,14 +14,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10.18
+          python-version: "3.10.18"
 
       # 3. Instalar dependencias
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install -r apirequirements.txt
-          pip install pytest flake8
+          pip install pytest flake8 httpx pytest-asyncio
 
       # 4. Ejecutar linter
       - name: Run Linter
