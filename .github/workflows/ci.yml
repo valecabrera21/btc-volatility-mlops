@@ -22,6 +22,8 @@ jobs:
           pip install --upgrade pip
           pip install -r apirequirements.txt
           pip install pytest flake8 httpx pytest-asyncio
+          pip install --upgrade httpx starlette fastapi
+
 
       # 4. Ejecutar linter
       - name: Run Linter
