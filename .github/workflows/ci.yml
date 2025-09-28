@@ -27,8 +27,12 @@ jobs:
       - name: Run Linter
         run: flake8 app/ --ignore=E501,W503
 
-      # 5. Ejecutar tests unitarios
+      # 5. Crear __init__.py si no existe
+      - name: Create __init__.py
+        run: touch app/__init__.py
+
+      # 6. Ejecutar tests unitarios
       - name: Run Tests
-        run: pytest tests/ -v
+        run: PYTHONPATH=. pytest tests/ -v
 
 
