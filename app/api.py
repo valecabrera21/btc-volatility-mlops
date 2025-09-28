@@ -41,7 +41,7 @@ for vol in [7, 14, 21, 28]:
         print(f"✓ Modelo volatilidad {vol} días cargado")
     else:
         print(f"✗ No encontrado: {model_path}")
-        
+
 
 # --- Ruta raíz ---
 @app.get("/", summary="Raíz de la API", tags=["General"])
@@ -50,7 +50,7 @@ def raiz():
         "mensaje": "API de Predicción de Volatilidad BTC",
         "modelos_disponibles": [f"Volatilidad {v} días" for v in modelos.keys()]
     }
-    
+
 
 # --- Endpoint de predicción ---
 @app.post("/predecir", response_model=RespuestaPrediccion, summary="Predicción de volatilidad", tags=["Predicción"])
@@ -60,7 +60,6 @@ def predecir(data: DatosBTC):
             status_code=400,
             detail=f"Modelo para {data.tipo_volatilidad} días no disponible. Modelos disponibles: {list(modelos.keys())}"
         )
-        
 
     modelo_data = modelos[data.tipo_volatilidad]
     modelo = modelo_data['modelo']
@@ -90,7 +89,7 @@ def predecir(data: DatosBTC):
         dias_pronostico=int(n_steps_forecast)
     )
 
-# Endpoint de información del modelo
+
 @app.get("/info_modelo/{dias_volatilidad}", response_model=InfoModelo, summary="Información del modelo", tags=["Modelo"])
 def info_modelo(dias_volatilidad: int):
     if dias_volatilidad not in modelos:
