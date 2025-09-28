@@ -1,0 +1,5 @@
+Modelo,Lag,Fold,BDS p-value H1
+Volatilidad 14 días,14,4,0.15807113740669199
+Volatilidad 21 días,21,3,0.6527340508319626
+Volatilidad 28 días,14,4,0.9586437812573544
+Volatilidad 7 días,7,1,0.3573422471776194
