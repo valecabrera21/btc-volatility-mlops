@@ -1,0 +1,1963 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análisis Exploratorio de los Datos &#8212; MiniProyecto 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'EDA';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modelos de predicción de la volatilidad para cada ventana (7, 14, 21 y 28 días)" href="MODELOS.html" />
+    <link rel="prev" title="Mini Proyecto 2" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="MiniProyecto 2 - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="MiniProyecto 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    <div style="text-align: center;">Mini Proyecto 2</div>
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Análisis Exploratorio de los Datos</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="MODELOS.html"><strong>Modelos de predicción de la volatilidad para cada ventana (7, 14, 21 y 28 días)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="RESIDUOS.html"><strong>Análisis de los residuos para cada volatilidad</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FEDA.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/EDA.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Análisis Exploratorio de los Datos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias"><strong>Librerías</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-la-base-de-datos"><strong>Sobre la base de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-las-variables"><strong>Sobre las variables</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precio"><strong>Precio</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estadisticas-descriptivas"><strong>Estadísticas descriptivas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-los-datos"><strong>Distribución de los datos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#picos"><strong>Picos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-temporal"><strong>Serie temporal</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retornos-logaritmicos"><strong>Retornos logarítmicos</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Estadísticas descriptivas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Distribución de los datos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Picos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Serie temporal</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#autocorrelacion-acf-de-los-retornos-retornolog"><strong>Autocorrelación (ACF) de los retornos (RetornoLog)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#autocorrelacion-acf-de-los-cuadrados-de-los-retornos-retornolog"><strong>Autocorrelación (ACF) de los cuadrados de los retornos (RetornoLog)</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocesamiento-y-calculo-de-features"><strong>Preprocesamiento y cálculo de features</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-retornos-logaritmicos"><strong>Cálculo de retornos logarítmicos</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-la-volatilidad-historica-variable-objetivo"><strong>Cálculo de la volatilidad histórica (variable objetivo)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-la-variable"><strong>Sobre la variable</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>Distribución de los datos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#volatilidades-por-ventanas"><strong>Volatilidades por ventanas</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#correlacion-de-precio-con-volatilidad-por-ventanas"><strong>Correlación de Precio con Volatilidad (por ventanas)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#correlacion-de-la-volatilidad-por-ventanas-con-el-valor-absoluto-de-los-retornos-logaritmicos"><strong>Correlación de la Volatilidad (por ventanas) con el Valor Absoluto de los Retornos Logarítmicos</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#base-de-datos-para-modelos"><strong>Base de datos para modelos</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analisis-exploratorio-de-los-datos">
+<h1><strong>Análisis Exploratorio de los Datos</strong><a class="headerlink" href="#analisis-exploratorio-de-los-datos" title="Link to this heading">#</a></h1>
+<p>Nuestra base de datos proviene de la fuente Binance y cuenta con registros diarios desde el año 2018 hasta el año 2025.</p>
+<section id="librerias">
+<h2><strong>Librerías</strong><a class="headerlink" href="#librerias" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">jarque_bera</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">pearsonr</span><span class="p">,</span> <span class="n">spearmanr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tsa.stattools</span><span class="w"> </span><span class="kn">import</span> <span class="n">adfuller</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.diagnostic</span><span class="w"> </span><span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sobre-la-base-de-datos">
+<h2><strong>Sobre la base de datos</strong><a class="headerlink" href="#sobre-la-base-de-datos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>  <span class="c1"># si estás en notebooks</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;btc_1d_data_2018_to_2025.csv&#39;</span><span class="p">)</span>
+<span class="n">btc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="n">btc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open time</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Close time</th>
+      <th>Quote asset volume</th>
+      <th>Number of trades</th>
+      <th>Taker buy base asset volume</th>
+      <th>Taker buy quote asset volume</th>
+      <th>Ignore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2018-01-01</td>
+      <td>13715.65</td>
+      <td>13818.55</td>
+      <td>12750.00</td>
+      <td>13380.00</td>
+      <td>8609.915844</td>
+      <td>2018-01-01 23:59:59.999</td>
+      <td>1.147997e+08</td>
+      <td>105595</td>
+      <td>3961.938946</td>
+      <td>5.280975e+07</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2018-01-02</td>
+      <td>13382.16</td>
+      <td>15473.49</td>
+      <td>12890.02</td>
+      <td>14675.11</td>
+      <td>20078.092111</td>
+      <td>2018-01-02 23:59:59.999</td>
+      <td>2.797171e+08</td>
+      <td>177728</td>
+      <td>11346.326739</td>
+      <td>1.580801e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2018-01-03</td>
+      <td>14690.00</td>
+      <td>15307.56</td>
+      <td>14150.00</td>
+      <td>14919.51</td>
+      <td>15905.667639</td>
+      <td>2018-01-03 23:59:59.999</td>
+      <td>2.361169e+08</td>
+      <td>162787</td>
+      <td>8994.953566</td>
+      <td>1.335873e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018-01-04</td>
+      <td>14919.51</td>
+      <td>15280.00</td>
+      <td>13918.04</td>
+      <td>15059.54</td>
+      <td>21329.649574</td>
+      <td>2018-01-04 23:59:59.999</td>
+      <td>3.127816e+08</td>
+      <td>170310</td>
+      <td>12680.812951</td>
+      <td>1.861168e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2018-01-05</td>
+      <td>15059.56</td>
+      <td>17176.24</td>
+      <td>14600.00</td>
+      <td>16960.39</td>
+      <td>23251.491125</td>
+      <td>2018-01-05 23:59:59.999</td>
+      <td>3.693220e+08</td>
+      <td>192969</td>
+      <td>13346.622293</td>
+      <td>2.118299e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2589</th>
+      <td>2025-02-02</td>
+      <td>100635.66</td>
+      <td>101456.60</td>
+      <td>99747.59</td>
+      <td>99796.00</td>
+      <td>3149.622330</td>
+      <td>2025-02-02 23:59:59.999</td>
+      <td>3.167280e+08</td>
+      <td>558753</td>
+      <td>1223.084700</td>
+      <td>1.231618e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2590</th>
+      <td>2025-02-03</td>
+      <td>97700.59</td>
+      <td>97782.79</td>
+      <td>91231.00</td>
+      <td>94495.21</td>
+      <td>20992.955720</td>
+      <td>2025-02-03 23:59:59.999</td>
+      <td>1.983835e+09</td>
+      <td>2309956</td>
+      <td>9239.171560</td>
+      <td>8.738586e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2591</th>
+      <td>2025-02-04</td>
+      <td>101328.51</td>
+      <td>101660.94</td>
+      <td>100743.33</td>
+      <td>101367.77</td>
+      <td>1910.355420</td>
+      <td>2025-02-04 23:59:59.999</td>
+      <td>1.933988e+08</td>
+      <td>208849</td>
+      <td>822.417140</td>
+      <td>8.326802e+07</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2592</th>
+      <td>2025-02-05</td>
+      <td>97763.14</td>
+      <td>98930.44</td>
+      <td>97131.43</td>
+      <td>97589.30</td>
+      <td>8160.567950</td>
+      <td>2025-02-05 23:59:59.999</td>
+      <td>7.990502e+08</td>
+      <td>1597813</td>
+      <td>3672.410530</td>
+      <td>3.596230e+08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2593</th>
+      <td>2025-02-06</td>
+      <td>96612.44</td>
+      <td>99120.00</td>
+      <td>96430.78</td>
+      <td>98329.13</td>
+      <td>8315.064450</td>
+      <td>2025-02-06 23:59:59.999</td>
+      <td>8.145593e+08</td>
+      <td>1471991</td>
+      <td>4089.626850</td>
+      <td>4.005688e+08</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2594 rows × 12 columns</p>
+</div></div></div>
+</div>
+<p>El conjunto de datos inicial contiene <strong>2594</strong> observaciones diarias del precio de Bitcoin (BTC), <strong>abarcando el periodo desde el 1 de enero de 2018 hasta el 6 de febrero de 2025</strong>. Cada registro incluye <strong>12</strong> características que describen la actividad del mercado en el formato estándar <strong>OHLCV (Open, High, Low, Close, Volume)</strong>, junto con otras de interés. De acuerdo con el objetivo del proyecto, que es predecir el comportamiento futuro basándose exclusivamente en su histórico temporal, se seleccionarán únicamente dos columnas: <code class="docutils literal notranslate"><span class="pre">la</span> <span class="pre">fecha</span> <span class="pre">del</span> <span class="pre">registro</span> <span class="pre">(Open</span> <span class="pre">time)</span> <span class="pre">y</span> <span class="pre">el</span> <span class="pre">precio</span> <span class="pre">de</span> <span class="pre">cierre</span> <span class="pre">(Close)</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">databtc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">databtc</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[[</span><span class="s1">&#39;Open time&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Open time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Open time&#39;</span><span class="p">])</span>
+<span class="n">databtc</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Open time&#39;</span><span class="p">:</span> <span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">:</span> <span class="s1">&#39;Precio&#39;</span><span class="p">})</span>
+<span class="n">databtc</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora, <code class="docutils literal notranslate"><span class="pre">databtc</span></code> es nuestro conjunto de datos de interés para el análisis.</p>
+<p>El siguiente paso es calcular los retornos logarítmicos. Esto a partir de la siguiente fórmula:</p>
+<div class="math notranslate nohighlight">
+\[r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r_t\)</span> es el retorno logarítmico en el periodo t.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_t\)</span> es el precio del activo en el periodo t (precio de hoy).</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_{t-1}\)</span> es el precio del activo en el periodo anterior t-1 (precio de ayer).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ln\)</span> es el logaritmo natural.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">databtc</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">databtc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Precio</th>
+      <th>RetornoLog</th>
+    </tr>
+    <tr>
+      <th>Fecha</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018-01-02</th>
+      <td>14675.11</td>
+      <td>0.092392</td>
+    </tr>
+    <tr>
+      <th>2018-01-03</th>
+      <td>14919.51</td>
+      <td>0.016517</td>
+    </tr>
+    <tr>
+      <th>2018-01-04</th>
+      <td>15059.54</td>
+      <td>0.009342</td>
+    </tr>
+    <tr>
+      <th>2018-01-05</th>
+      <td>16960.39</td>
+      <td>0.118869</td>
+    </tr>
+    <tr>
+      <th>2018-01-06</th>
+      <td>17069.79</td>
+      <td>0.006430</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2025-02-02</th>
+      <td>99796.00</td>
+      <td>-0.024038</td>
+    </tr>
+    <tr>
+      <th>2025-02-03</th>
+      <td>94495.21</td>
+      <td>-0.054579</td>
+    </tr>
+    <tr>
+      <th>2025-02-04</th>
+      <td>101367.77</td>
+      <td>0.070206</td>
+    </tr>
+    <tr>
+      <th>2025-02-05</th>
+      <td>97589.30</td>
+      <td>-0.037987</td>
+    </tr>
+    <tr>
+      <th>2025-02-06</th>
+      <td>98329.13</td>
+      <td>0.007552</td>
+    </tr>
+  </tbody>
+</table>
+<p>2593 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Finalmente nos quedamos con la base de datos resultante luego de la transformación y preprocesamiento aplicado.</p>
+</section>
+<section id="sobre-las-variables">
+<h2><strong>Sobre las variables</strong><a class="headerlink" href="#sobre-las-variables" title="Link to this heading">#</a></h2>
+<section id="precio">
+<h3><strong>Precio</strong><a class="headerlink" href="#precio" title="Link to this heading">#</a></h3>
+<section id="estadisticas-descriptivas">
+<h4><strong>Estadísticas descriptivas</strong><a class="headerlink" href="#estadisticas-descriptivas" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count      2593.000000
+mean      29096.252140
+std       23578.757068
+min        3211.720000
+25%        9068.650000
+50%       22762.520000
+75%       43538.040000
+max      106143.820000
+Name: Precio, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>A partir de las estadísticas descriptivas de la variable <code class="docutils literal notranslate"><span class="pre">Precio</span></code>, se pueden identificar distintas características sobre su comportamiento. En primer lugar, se observa que la media (<strong>29096.25 USD</strong>) es superior a la mediana (<strong>22762.52 USD</strong>), lo que indica la existencia de una asimetría positiva, es decir, sesgo a la derecha en la distribución de los datos. Asimismo, el alto valor de la desviación estándar (<strong>23578.75 USD</strong>) da indicios de una considerable dispersión presente, lo cual podemos evidenciar igualmente en la diferencia de valores entre los extremos (<strong>3211.72 USD</strong> y <strong>106143.82 USD</strong>) y los cuartiles.</p>
+</section>
+<section id="distribucion-de-los-datos">
+<h4><strong>Distribución de los datos</strong><a class="headerlink" href="#distribucion-de-los-datos" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jb_stat_precio</span><span class="p">,</span> <span class="n">jb_p_precio</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico JB: </span><span class="si">{</span><span class="n">jb_stat_precio</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P-valor: </span><span class="si">{</span><span class="n">jb_p_precio</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="k">if</span> <span class="n">jb_p_precio</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La serie NO sigue una distribución normal.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La serie podría seguir una distribución normal.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estadístico JB: 493.376
+P-valor: 7.3229e-108
+La serie NO sigue una distribución normal.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skew_precio</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Asimetría (Skewness): </span><span class="si">{</span><span class="n">skew_precio</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Asimetría (Skewness): 1.0394
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">databtc</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Precio&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8ecae6&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#023047&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Media: $</span><span class="si">{</span><span class="n">databtc</span><span class="p">[</span><span class="s2">&quot;Precio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#fb8500&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Mediana: $</span><span class="si">{</span><span class="n">databtc</span><span class="p">[</span><span class="s2">&quot;Precio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribución de Precios de Cierre de Bitcoin&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Precio (USD)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/15b153fb68c2266753af0cdeba7c678c9ecab80a0778f9879f7303ea7107e90d.png" src="_images/15b153fb68c2266753af0cdeba7c678c9ecab80a0778f9879f7303ea7107e90d.png" />
+</div>
+</div>
+<p>En el test de normalidad, se rechazó la hipótesis nula, es decir, que los datos no siguen una distribución normal. Asimismo, el estadístico de asimetría (<code class="docutils literal notranslate"><span class="pre">Skewness</span></code>) dio como resultado <strong>1.0394</strong>, lo que confirma una marcada asimetría positiva en la distribución de los precios. Este resultado numérico es consistente con el histograma, donde se observa una clara cola extendida hacia la derecha.</p>
+</section>
+<section id="picos">
+<h4><strong>Picos</strong><a class="headerlink" href="#picos" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fecha_max_precio</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+<span class="n">fecha_min_precio</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+
+<span class="n">max_precio</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fecha_max_precio</span><span class="p">,</span> <span class="s1">&#39;Precio&#39;</span><span class="p">]</span>
+<span class="n">min_precio</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fecha_min_precio</span><span class="p">,</span> <span class="s1">&#39;Precio&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; El precio máximo fue de </span><span class="si">{</span><span class="n">max_precio</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> USD y se obtuvo en la fecha </span><span class="si">{</span><span class="n">fecha_max_precio</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; El precio mínimo fue de </span><span class="si">{</span><span class="n">min_precio</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> USD y se obtuvo eb la fecha </span><span class="si">{</span><span class="n">fecha_min_precio</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> El precio máximo fue de 106143.82 USD y se obtuvo en la fecha 2025-01-21.
+ El precio mínimo fue de 3211.72 USD y se obtuvo eb la fecha 2018-12-15.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="serie-temporal">
+<h4><strong>Serie temporal</strong><a class="headerlink" href="#serie-temporal" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adftest</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="n">p_value</span> <span class="o">=</span> <span class="n">adftest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Estadístico ADF: </span><span class="si">{</span><span class="n">adftest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">p_value</span> <span class="o">&lt;=</span> <span class="mf">0.05</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La serie es ESTACIONARIA (p-value &lt;= 0.05)&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; La serie NO es ESTACIONARIA (p-value &gt; 0.05)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Estadístico ADF: -0.0545
+ p-value: 0.9538
+ La serie NO es ESTACIONARIA (p-value &gt; 0.05)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Precio de Cierre de BTC&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;#023047&#39;</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Precio de Cierre Diario de Bitcoin (2018-2025)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precio (USD)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/441800aa338f9cfc411bf8e3312b3c87a9d9795fbbd40648137e9171c47cbb33.png" src="_images/441800aa338f9cfc411bf8e3312b3c87a9d9795fbbd40648137e9171c47cbb33.png" />
+</div>
+</div>
+<p>La serie temporal del precio de cierre de Bitcoin confirma lo mostrado por la prueba de Dickey-Fuller: la serie es <strong>no estacionaria</strong>.</p>
+<p>Entre 2018 y finales de 2020 el precio se mantuvo relativamente estable, con subidas y caídas que no fueron tan marcadas. En 2021 se dio una gran subida, aunque hacia la mitad del mismo año ocurrió una fuerte caída, de la cual el precio logró recuperarse poco después. Durante 2022 se presentó una caída constante que se prolongó hasta 2023. Desde entonces, se observa una tendencia de crecimiento sostenido que llega hasta el año 2025.</p>
+</section>
+</section>
+<section id="retornos-logaritmicos">
+<h3><strong>Retornos logarítmicos</strong><a class="headerlink" href="#retornos-logaritmicos" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4><strong>Estadísticas descriptivas</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    2593.000000
+mean        0.000769
+std         0.036221
+min        -0.502607
+25%        -0.014171
+50%         0.000708
+75%         0.016304
+max         0.178449
+Name: RetornoLog, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Al analizar las estadísticas de los retornos logarítmicos se observa que tanto la media (<strong>0.0006</strong>) como la mediana (<strong>0.0007</strong>) son prácticamente cero, lo que indica que la serie se comporta de manera estacionaria. Por otro lado, la desviación estándar muestra que los retornos presentan una variación típica de <strong>3.62%</strong> por día. Finalmente, los valores mínimo (<strong>-0.50</strong>) y máximo (<strong>0.17</strong>) evidencian que, si bien la mayor parte de los datos se concentra en torno a ese comportamiento estable, existen días con fluctuaciones mucho más pronunciadas.</p>
+</section>
+<section id="id2">
+<h4><strong>Distribución de los datos</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jb_stat_retornos</span><span class="p">,</span> <span class="n">jb_p_retornos</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico JB: </span><span class="si">{</span><span class="n">jb_stat_retornos</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P-valor: </span><span class="si">{</span><span class="n">jb_p_retornos</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="k">if</span> <span class="n">jb_p_retornos</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La serie NO sigue una distribución normal.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La serie podría seguir una distribución normal.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estadístico JB: 31862.647
+P-valor: 0.0000e+00
+La serie NO sigue una distribución normal.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skew_retlog</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Asimetría (Skewness): </span><span class="si">{</span><span class="n">skew_retlog</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Asimetría (Skewness): -1.1582
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">databtc</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8ecae6&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#023047&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Media: $</span><span class="si">{</span><span class="n">databtc</span><span class="p">[</span><span class="s2">&quot;RetornoLog&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#fb8500&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Mediana: $</span><span class="si">{</span><span class="n">databtc</span><span class="p">[</span><span class="s2">&quot;RetornoLog&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribución de Retornos Logarítmicos&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Retorno Logarítmico&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/702775c2262df3e4156f618a8825c890b7fd746844ccb20b75699d5338cb8a62.png" src="_images/702775c2262df3e4156f618a8825c890b7fd746844ccb20b75699d5338cb8a62.png" />
+</div>
+</div>
+<p>En el test de normalidad, se rechazó la hipótesis nula, es decir, que los datos no siguen una distribución normal. Asimismo, el estadístico de asimetría (<code class="docutils literal notranslate"><span class="pre">Skewness</span></code>) dio como resultado <strong>-1.1582</strong>, lo que confirma una marcada asimetría negativa en la distribución de los retornos logarítmicos. Este resultado numérico es consistente con el histograma, donde se observa una clara cola extendida hacia la izquierda.</p>
+</section>
+<section id="id3">
+<h4><strong>Picos</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">peor_dia</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+<span class="n">mejor_dia</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+
+<span class="n">peor_retorno</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">peor_dia</span><span class="p">,</span> <span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span>
+<span class="n">mejor_retorno</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mejor_dia</span><span class="p">,</span> <span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; El día en el que se obtuvo la mayor caída fue </span><span class="si">{</span><span class="n">peor_dia</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> con un retorno de </span><span class="si">{</span><span class="n">peor_retorno</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; El día en el que se obtuvo la mayor subida fue </span><span class="si">{</span><span class="n">mejor_dia</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> con un retorno de </span><span class="si">{</span><span class="n">mejor_retorno</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> El día en el que se obtuvo la mayor caída fue 2020-03-12 con un retorno de -50.26%.
+ El día en el que se obtuvo la mayor subida fue 2021-02-08 con un retorno de 17.84%.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4><strong>Serie temporal</strong><a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adftest</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="n">p_value</span> <span class="o">=</span> <span class="n">adftest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Estadístico ADF: </span><span class="si">{</span><span class="n">adftest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">p_value</span> <span class="o">&lt;=</span> <span class="mf">0.05</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La serie es ESTACIONARIA (p-value &lt;= 0.05)&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; La serie NO es ESTACIONARIA (p-value &gt; 0.05)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Estadístico ADF: -35.5112
+ p-value: 0.0000
+La serie es ESTACIONARIA (p-value &lt;= 0.05)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Retornos Logarítmicos&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#fb8500&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Retornos Logarítmicos Diarios de Bitcoin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Retorno Logarítmico&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7c79a1deedb81086e194343d5f2820da6bfadfb1e9efbec5d3d6880d1d14f837.png" src="_images/7c79a1deedb81086e194343d5f2820da6bfadfb1e9efbec5d3d6880d1d14f837.png" />
+</div>
+</div>
+<p>Al observar el gráfico de los retornos logarítmicos, se nota que los valores fluctúan alrededor de cero, lo que confirma que la serie es estacionaria, a diferencia del comportamiento que mostraban los precios.</p>
+<p>También se aprecia que la magnitud de las fluctuaciones diarias no es constante pues hay periodos con variaciones pequeñas y otros con cambios mucho más grandes, los cuales tienden a concentrarse en bloques de tiempo.</p>
+<p>Finalmente, destaca un pico pronunciado a la baja, correspondiente a la caída del <strong>-50.26%</strong> registrada el 12 de marzo de 2020, evento que ya habíamos identificado previamente.</p>
+<p>Una vez analizadas las propiedades básicas de la distribución de los retornos, el siguiente paso es estudiar la posible existencia de dependencia temporal. Para ello, se verificará si los retornos de un día están correlacionados con los de días anteriores, es decir, si existe autocorrelación. El análisis se realizará primero con una prueba estadística formal de independencia y luego su representación gráfica.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">retornos</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span>
+<span class="n">lagsprueba</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">28</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="autocorrelacion-acf-de-los-retornos-retornolog">
+<h4><strong>Autocorrelación (ACF) de los retornos (RetornoLog)</strong><a class="headerlink" href="#autocorrelacion-acf-de-los-retornos-retornolog" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ljung_ret</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">retornos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="n">lagsprueba</span><span class="p">,</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">html_ljung_ret</span> <span class="o">=</span> <span class="n">ljung_ret</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;12pt&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">format</span><span class="p">({</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:.8e}</span><span class="s1">&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_ljung_ret</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_1904e_row0_col0, #T_1904e_row0_col1, #T_1904e_row1_col0, #T_1904e_row1_col1, #T_1904e_row2_col0, #T_1904e_row2_col1, #T_1904e_row3_col0, #T_1904e_row3_col1 {
+  text-align: center;
+  font-size: 12pt;
+}
+</style>
+<table id="T_1904e">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_1904e_level0_col0" class="col_heading level0 col0" >lb_stat</th>
+      <th id="T_1904e_level0_col1" class="col_heading level0 col1" >lb_pvalue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_1904e_level0_row0" class="row_heading level0 row0" >7</th>
+      <td id="T_1904e_row0_col0" class="data row0 col0" >20.702615</td>
+      <td id="T_1904e_row0_col1" class="data row0 col1" >4.23615402e-03</td>
+    </tr>
+    <tr>
+      <th id="T_1904e_level0_row1" class="row_heading level0 row1" >14</th>
+      <td id="T_1904e_row1_col0" class="data row1 col0" >26.153238</td>
+      <td id="T_1904e_row1_col1" class="data row1 col1" >2.47495660e-02</td>
+    </tr>
+    <tr>
+      <th id="T_1904e_level0_row2" class="row_heading level0 row2" >21</th>
+      <td id="T_1904e_row2_col0" class="data row2 col0" >29.799477</td>
+      <td id="T_1904e_row2_col1" class="data row2 col1" >9.60921646e-02</td>
+    </tr>
+    <tr>
+      <th id="T_1904e_level0_row3" class="row_heading level0 row3" >28</th>
+      <td id="T_1904e_row3_col0" class="data row3 col0" >33.801536</td>
+      <td id="T_1904e_row3_col1" class="data row3 col1" >2.07484002e-01</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">retornos</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">lags</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#023047&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Función de Autocorrelación (ACF) de los Retornos Logarítmicos&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Lags (Días)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelación&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6ceefa016371ff16e72dc8df8fbcd72c313ef89c53b5f453d238d13a5611e960.png" src="_images/6ceefa016371ff16e72dc8df8fbcd72c313ef89c53b5f453d238d13a5611e960.png" />
+</div>
+</div>
+<p>La prueba de Ljung–Box aplicada a los retornos originales muestra que existe cierta autocorrelación lineal estadísticamente significativa en los horizontes más cortos: para los rezagos de <strong>7 y 14 días</strong> se obtuvieron p-values de <strong>0.0042 y 0.0247, respectivamente</strong>. Sin embargo, esta dependencia es débil y desaparece en horizontes más largos, como lo reflejan los p-values no significativos en los rezagos de <strong>21 (0.0961) y 28 días (0.2075)</strong>. En conjunto, estos resultados permiten concluir que <strong>no existe una autocorrelación lineal persistente en la serie de retornos</strong>.</p>
+<p>Esta conclusión también se observa en el gráfico de la ACF. Se observa que, si bien el lag 0 tiene un valor de 1 (la correlación perfecta de la serie consigo misma), a partir del lag 1 casi todos los coeficientes se mantienen dentro del intervalo de confianza representado por la sombra azul y muy cercanos a cero. Esto evidencia que que los retornos pasados no son predictores lineales de los retornos futuros.</p>
+</section>
+<section id="autocorrelacion-acf-de-los-cuadrados-de-los-retornos-retornolog">
+<h4><strong>Autocorrelación (ACF) de los cuadrados de los retornos (RetornoLog)</strong><a class="headerlink" href="#autocorrelacion-acf-de-los-cuadrados-de-los-retornos-retornolog" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ljung_ret2</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">retornos</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="n">lagsprueba</span><span class="p">,</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">html_ljung_ret2</span> <span class="o">=</span> <span class="n">ljung_ret2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;12pt&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">format</span><span class="p">({</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:.8e}</span><span class="s1">&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_ljung_ret2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_792c6_row0_col0, #T_792c6_row0_col1, #T_792c6_row1_col0, #T_792c6_row1_col1, #T_792c6_row2_col0, #T_792c6_row2_col1, #T_792c6_row3_col0, #T_792c6_row3_col1 {
+  text-align: center;
+  font-size: 12pt;
+}
+</style>
+<table id="T_792c6">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_792c6_level0_col0" class="col_heading level0 col0" >lb_stat</th>
+      <th id="T_792c6_level0_col1" class="col_heading level0 col1" >lb_pvalue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_792c6_level0_row0" class="row_heading level0 row0" >7</th>
+      <td id="T_792c6_row0_col0" class="data row0 col0" >48.819700</td>
+      <td id="T_792c6_row0_col1" class="data row0 col1" >2.46116825e-08</td>
+    </tr>
+    <tr>
+      <th id="T_792c6_level0_row1" class="row_heading level0 row1" >14</th>
+      <td id="T_792c6_row1_col0" class="data row1 col0" >58.348361</td>
+      <td id="T_792c6_row1_col1" class="data row1 col1" >2.28080011e-07</td>
+    </tr>
+    <tr>
+      <th id="T_792c6_level0_row2" class="row_heading level0 row2" >21</th>
+      <td id="T_792c6_row2_col0" class="data row2 col0" >67.151084</td>
+      <td id="T_792c6_row2_col1" class="data row2 col1" >9.98336894e-07</td>
+    </tr>
+    <tr>
+      <th id="T_792c6_level0_row3" class="row_heading level0 row3" >28</th>
+      <td id="T_792c6_row3_col0" class="data row3 col0" >70.046971</td>
+      <td id="T_792c6_row3_col1" class="data row3 col1" >1.83309950e-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">plot_acf</span><span class="p">((</span><span class="n">retornos</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">lags</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#023047&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Función de Autocorrelación (ACF) de los cuadrados de los Retornos Logarítmicos&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Lags (Días)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelación&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a6d1d25c56386488f1a6220c2f3f37d64750e71639f81380cf5d3a8b4b0133a1.png" src="_images/a6d1d25c56386488f1a6220c2f3f37d64750e71639f81380cf5d3a8b4b0133a1.png" />
+</div>
+</div>
+<p>Los resultados de la prueba de Ljung–Box sobre los retornos al cuadrado muestran que, para los lags de 7, 14, 21 y 28 días, los p-values son prácticamente cero. Esto indica que se puede rechazar la hipótesis nula y concluir que existe autocorrelación significativa en la magnitud de los movimientos de la serie. En otras palabras, aunque los retornos en sí no presenten dependencia lineal, la variabilidad de esos retornos (<code class="docutils literal notranslate"><span class="pre">volatilidad</span></code>) sí muestra un patrón claro. Esta conclusión también se confirma en el gráfico de la ACF, donde hay puntos que aparecen fuera del intervalo de confianza representado por la sombra azul.</p>
+</section>
+</section>
+</section>
+<section id="preprocesamiento-y-calculo-de-features">
+<h2><strong>Preprocesamiento y cálculo de features</strong><a class="headerlink" href="#preprocesamiento-y-calculo-de-features" title="Link to this heading">#</a></h2>
+<section id="calculo-de-retornos-logaritmicos">
+<h3><strong>Cálculo de retornos logarítmicos</strong><a class="headerlink" href="#calculo-de-retornos-logaritmicos" title="Link to this heading">#</a></h3>
+<p>Este cálculo ya se presentó en la sección anterior y se realizó a partir de la variable <code class="docutils literal notranslate"><span class="pre">Precio</span></code>. Su propósito fue disponer de los retornos logarítmicos necesarios para llevar a cabo los análisis pertinentes.</p>
+</section>
+<section id="calculo-de-la-volatilidad-historica-variable-objetivo">
+<h3><strong>Cálculo de la volatilidad histórica (variable objetivo)</strong><a class="headerlink" href="#calculo-de-la-volatilidad-historica-variable-objetivo" title="Link to this heading">#</a></h3>
+<p>La <strong>volatilidad</strong> es una medida de <strong>dispersión de los rendimientos</strong> de un activo financiero.</p>
+<p>Para una ventana de tamaño <em>n</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_t = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left( r_{t-i} - \bar{r} \right)^2 }, 
+\quad \text{donde} \quad 
+r_t = \ln \left( \frac{P_t}{P_{t-1}} \right)
+\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r_t\)</span> es el retorno logarítmico diario.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_t\)</span> es la volatilidad histórica realizada en ventana de <em>n</em> días.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{r}\)</span> es el promedio de los retornos en la ventana</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ventanas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">28</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ventana</span> <span class="ow">in</span> <span class="n">ventanas</span><span class="p">:</span>
+    <span class="n">col_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Volatilidad_</span><span class="si">{</span><span class="n">ventana</span><span class="si">}</span><span class="s1">d&#39;</span>
+    <span class="n">databtc</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">ventana</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">365</span><span class="p">)</span>
+
+<span class="n">volatilidad_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Volatilidad_</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">d&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ventanas</span><span class="p">]</span>      
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para calcular la volatilidad diaria, se utilizó la desviación estándar móvil de los retornos logarítmicos en cuatro ventanas de interés (<strong>7, 14, 21 y 28 días</strong>), trabajadas de manera individual. Luego, estos valores se anualizaron multiplicándolos por la raíz cuadrada de <strong>365</strong>. Este ajuste permite expresar la volatilidad en una escala anual, lo que facilita su comparación con otros activos y con distintos periodos de tiempo.</p>
+<p>Esta medida se definió como la variable objetivo para el modelo de predicción de este proyecto.</p>
+<p>En la tabla resultante se observa que cada ventana presenta valores faltantes al inicio. Esto sucede porque, por ejemplo, en la ventana de 7 días no se pueden calcular los primeros 7 retornos, en la de 14 días las primeras 14 observaciones, y así sucesivamente. Esto era esperado, ya que el cálculo de la desviación estándar móvil necesita acumular suficientes observaciones previas para poder hacerse. Por lo tanto, las primeras filas no tienen información suficiente y aparecen como nulas. Estos valores ausentes se tendrán en cuenta al momento de implementar los modelos, indicando desde qué observación debe comenzar cada ventana.</p>
+<section id="sobre-la-variable">
+<h4><strong>Sobre la variable</strong><a class="headerlink" href="#sobre-la-variable" title="Link to this heading">#</a></h4>
+<section id="id5">
+<h5><strong>Distribución de los datos</strong><a class="headerlink" href="#id5" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jb_resultados</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">volatilidad_cols</span><span class="p">:</span>
+    <span class="n">jb_stat</span><span class="p">,</span> <span class="n">jb_p_value</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+    <span class="n">jb_resultados</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Estadístico JB&quot;</span><span class="p">:</span> <span class="n">jb_stat</span><span class="p">,</span>
+        <span class="s2">&quot;P-valor&quot;</span><span class="p">:</span> <span class="n">jb_p_value</span>
+    <span class="p">}</span>
+
+<span class="n">jb_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">jb_resultados</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">html_output_jb</span> <span class="o">=</span> <span class="n">jb_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;12pt&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_output_jb</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_ea3be_row0_col0, #T_ea3be_row0_col1, #T_ea3be_row1_col0, #T_ea3be_row1_col1, #T_ea3be_row2_col0, #T_ea3be_row2_col1, #T_ea3be_row3_col0, #T_ea3be_row3_col1 {
+  text-align: center;
+  font-size: 12pt;
+}
+</style>
+<table id="T_ea3be">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_ea3be_level0_col0" class="col_heading level0 col0" >Estadístico JB</th>
+      <th id="T_ea3be_level0_col1" class="col_heading level0 col1" >P-valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_ea3be_level0_row0" class="row_heading level0 row0" >Volatilidad_7d</th>
+      <td id="T_ea3be_row0_col0" class="data row0 col0" >49386.533377</td>
+      <td id="T_ea3be_row0_col1" class="data row0 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_ea3be_level0_row1" class="row_heading level0 row1" >Volatilidad_14d</th>
+      <td id="T_ea3be_row1_col0" class="data row1 col0" >24143.363794</td>
+      <td id="T_ea3be_row1_col1" class="data row1 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_ea3be_level0_row2" class="row_heading level0 row2" >Volatilidad_21d</th>
+      <td id="T_ea3be_row2_col0" class="data row2 col0" >13931.461281</td>
+      <td id="T_ea3be_row2_col1" class="data row2 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_ea3be_level0_row3" class="row_heading level0 row3" >Volatilidad_28d</th>
+      <td id="T_ea3be_row3_col0" class="data row3 col0" >9325.456928</td>
+      <td id="T_ea3be_row3_col1" class="data row3 col1" >0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Luego de aplicar el test de Jarque Bera correspondiente al análisis de la distribución de los datos, obtuvimos como resultado que ninguna de las series correspondientes a cada ventana siguen una distribución normal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skew_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Volatilidad_</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">d&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ventanas</span><span class="p">]:</span>
+    <span class="n">skew_results</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+
+<span class="n">skew_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">skew_results</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;Asimetría (Skewness)&#39;</span><span class="p">])</span>
+
+<span class="n">html_output</span> <span class="o">=</span> <span class="n">skew_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;font-size&#39;</span><span class="p">:</span> <span class="s1">&#39;12pt&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_output</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_81112_row0_col0, #T_81112_row0_col1, #T_81112_row1_col0, #T_81112_row1_col1, #T_81112_row2_col0, #T_81112_row2_col1, #T_81112_row3_col0, #T_81112_row3_col1 {
+  text-align: center;
+  font-size: 12pt;
+}
+</style>
+<table id="T_81112">
+  <thead>
+    <tr>
+      <th id="T_81112_level0_col0" class="col_heading level0 col0" >Variable</th>
+      <th id="T_81112_level0_col1" class="col_heading level0 col1" >Asimetría (Skewness)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_81112_row0_col0" class="data row0 col0" >Volatilidad_7d</td>
+      <td id="T_81112_row0_col1" class="data row0 col1" >2.927654</td>
+    </tr>
+    <tr>
+      <td id="T_81112_row1_col0" class="data row1 col0" >Volatilidad_14d</td>
+      <td id="T_81112_row1_col1" class="data row1 col1" >2.567215</td>
+    </tr>
+    <tr>
+      <td id="T_81112_row2_col0" class="data row2 col0" >Volatilidad_21d</td>
+      <td id="T_81112_row2_col1" class="data row2 col1" >2.301968</td>
+    </tr>
+    <tr>
+      <td id="T_81112_row3_col0" class="data row3 col0" >Volatilidad_28d</td>
+      <td id="T_81112_row3_col1" class="data row3 col1" >2.141476</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribución de la Volatilidad Anualizada por Ventana de Días&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">volatilidad_cols</span><span class="p">):</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">databtc</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8ecae6&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    
+    <span class="n">mean_val</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">median_val</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">mean_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#023047&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Media: </span><span class="si">{</span><span class="n">mean_val</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">median_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#fb8500&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Mediana: </span><span class="si">{</span><span class="n">median_val</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ventana de </span><span class="si">{</span><span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Volatilidad&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4825f1076cd3d7c2da41d9501c45713d66994eab66960d869edbbe5dc0e1a547.png" src="_images/4825f1076cd3d7c2da41d9501c45713d66994eab66960d869edbbe5dc0e1a547.png" />
+</div>
+</div>
+<p>Para todas las ventanas temporales analizadas, se comprobó que ninguna serie sigue una distribución normal. Esto se complementa con el valor del test de asimetría donde se hallaron valores que van desde <strong>3.05</strong> en la ventana de 7 días hasta <strong>2.14</strong> en la de 28 días. Esta asimetría positiva muestra que la distribución de la volatilidad presenta una cola pesada hacia la derecha. Lo anterior se evidencia también en los histogramas graficados para cada ventana. Además, se observa una disminución progresiva a medida que aumenta la ventana, lo cual sugiere que los eventos extremos de alta volatilidad tienen mayor impacto en los plazos cortos, pero se suavizan al calcular promedios en horizontes más largos.</p>
+</section>
+<section id="volatilidades-por-ventanas">
+<h5><strong>Volatilidades por ventanas</strong><a class="headerlink" href="#volatilidades-por-ventanas" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#8ecae6&#39;</span><span class="p">,</span> <span class="s1">&#39;#023047&#39;</span><span class="p">,</span> <span class="s1">&#39;#dd1c1a&#39;</span><span class="p">,</span> <span class="s1">&#39;#fb8500&#39;</span><span class="p">]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">volatilidad_cols</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">databtc</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Volatilidad </span><span class="si">{</span><span class="n">ventanas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1"> días&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Serie de Tiempo de la Volatilidad de Bitcoin: Comparación de Ventanas&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Volatilidad Anualizada&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1d09924137e42fec725f2fb6157e1a31408e544473298e3462a4900da3ecf08f.png" src="_images/1d09924137e42fec725f2fb6157e1a31408e544473298e3462a4900da3ecf08f.png" />
+</div>
+</div>
+<p>En este gráfico, donde se comparan las series de tiempo para cada ventana, se puede observar de manera clara lo mencionado anteriormente. A menor plazo, mayor es la variación en la volatilidad. En particular, la serie en azul claro, correspondiente a la ventana de 7 días, es la que muestra los picos más marcados tanto en caídas como en subidas. Le sigue la ventana de 14 días, luego la de 21, y finalmente la de 28 días, que es la que presenta cambios más suaves en la volatilidad.</p>
+<p>De esta forma, se confirma gráficamente que los impactos en la volatilidad son más intensos cuando se consideran plazos más cortos.</p>
+</section>
+<section id="correlacion-de-precio-con-volatilidad-por-ventanas">
+<h5><strong>Correlación de Precio con Volatilidad (por ventanas)</strong><a class="headerlink" href="#correlacion-de-precio-con-volatilidad-por-ventanas" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultados</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">volatilidad_cols</span><span class="p">,</span> <span class="n">ventanas</span><span class="p">):</span>
+    <span class="n">temporal</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[[</span><span class="s1">&#39;Precio&#39;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="n">r_s</span><span class="p">,</span> <span class="n">p_s</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">temporal</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">],</span> <span class="n">temporal</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+    <span class="n">resultados</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span>   
+        <span class="s2">&quot;Spearman_r&quot;</span><span class="p">:</span> <span class="n">r_s</span><span class="p">,</span>
+        <span class="s2">&quot;Spearman_p&quot;</span><span class="p">:</span> <span class="n">p_s</span>
+    <span class="p">}</span>
+
+<span class="n">resultados_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_p&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_p&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+
+<span class="n">heatmap_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Ventana (días)&quot;</span><span class="p">:</span> <span class="n">resultados_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Ventana (días)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  
+
+<span class="c1"># Heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">heatmap_data</span><span class="p">,</span> 
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span>  
+    <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">,</span> 
+    <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="n">linecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeficiente de Correlación (ρ)&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Correlación Spearman entre Precio y Volatilidad Anualizada&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Ventana de Volatilidad (días)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d801441ebf825e7700185da750840e09cd765633f453233d0a2f7506dc373b7b.png" src="_images/d801441ebf825e7700185da750840e09cd765633f453233d0a2f7506dc373b7b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Gráfico de Dispersión: Precio vs Volatilidad Anualizada por Ventana de Días&#39;</span><span class="p">,</span> 
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">ventana</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">volatilidad_cols</span><span class="p">,</span> <span class="n">ventanas</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;Precio&#39;</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">],</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#219ebc&quot;</span>
+    <span class="p">)</span>
+    
+    <span class="n">r_s</span> <span class="o">=</span> <span class="n">resultados</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ventana</span><span class="p">)][</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Precio (USD)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Volatilidad Anualizada&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ventana de </span><span class="si">{</span><span class="n">ventana</span><span class="si">}</span><span class="s1"> días (ρ = </span><span class="si">{</span><span class="n">r_s</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/68905b14648042b0bef213978322c00e63fbb5ff327aa2ee65406d96129075bc.png" src="_images/68905b14648042b0bef213978322c00e63fbb5ff327aa2ee65406d96129075bc.png" />
+</div>
+</div>
+<p>Los coeficientes de correlación de Spearman (rho) obtenidos para las ventanas de 7, 14, 21 y 28 días (<strong>-0.031, -0.070, -0.101 y -0.123</strong>, respectivamente) reflejan una relación débil y no significativa entre los precios de cierre y la volatilidad en cada periodo. Este comportamiento coincide con lo observado en los gráficos de dispersión, donde no se evidencia una tendencia clara. Además, el signo negativo de los coeficientes sugiere una relación inversa: a medida que los precios aumentan, la volatilidad tiende a disminuir, aunque este efecto es insignificante.</p>
+</section>
+<section id="correlacion-de-la-volatilidad-por-ventanas-con-el-valor-absoluto-de-los-retornos-logaritmicos">
+<h5><strong>Correlación de la Volatilidad (por ventanas) con el Valor Absoluto de los Retornos Logarítmicos</strong><a class="headerlink" href="#correlacion-de-la-volatilidad-por-ventanas-con-el-valor-absoluto-de-los-retornos-logaritmicos" title="Link to this heading">#</a></h5>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">retornosabs</span> <span class="o">=</span> <span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="n">retornosabs</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;AbsRetornoLog&#39;</span>  
+
+<span class="n">resultados</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">volatilidad_cols</span><span class="p">,</span> <span class="n">ventanas</span><span class="p">):</span>
+    <span class="n">temporal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">retornosabs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="n">r_s</span><span class="p">,</span> <span class="n">p_s</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">temporal</span><span class="p">[</span><span class="s1">&#39;AbsRetornoLog&#39;</span><span class="p">],</span> <span class="n">temporal</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+    <span class="n">resultados</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Spearman_r&quot;</span><span class="p">:</span> <span class="n">r_s</span><span class="p">,</span>
+        <span class="s2">&quot;Spearman_p&quot;</span><span class="p">:</span> <span class="n">p_s</span>
+    <span class="p">}</span>
+
+<span class="n">resultados_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_p&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_p&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+
+<span class="n">heatmap_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Ventana (días)&quot;</span><span class="p">:</span> <span class="n">resultados_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="n">resultados_df</span><span class="p">[</span><span class="s2">&quot;Spearman_r&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Ventana (días)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">heatmap_data</span><span class="p">,</span>
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;GnBu&quot;</span><span class="p">,</span>
+    <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">,</span>
+    <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">linecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeficiente de Correlación (ρ)&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Correlación Spearman entre Volatilidad y Retornos Logarítmicos Absolutos&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Ventana de Volatilidad (días)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/12f03e17f4fd47f4111ca1506605d46f1dd3adcdc60e3dbdf093cf099774413f.png" src="_images/12f03e17f4fd47f4111ca1506605d46f1dd3adcdc60e3dbdf093cf099774413f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Gráfico de Dispersión: Volatilidad Anualizada vs. Valor Absoluto de los Retornos&#39;</span><span class="p">,</span> 
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">volatilidad_cols</span><span class="p">):</span>
+    <span class="c1"># Calcular correlación de Spearman</span>
+    <span class="n">r_s</span><span class="p">,</span> <span class="n">p_s</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">(),</span> <span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s2">&quot;omit&quot;</span><span class="p">)</span>
+    
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">databtc</span><span class="p">[</span><span class="s1">&#39;RetornoLog&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">(),</span> <span class="n">y</span><span class="o">=</span><span class="n">databtc</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#219ebc&quot;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ventana </span><span class="si">{</span><span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> (ρ = </span><span class="si">{</span><span class="n">r_s</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Valor Absoluto de Retornos Logarítmicos&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Volatilidad </span><span class="si">{</span><span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0e0086ad3061549642581283c497cd55297b59b34d5a96ac014860b8b6ab48ff.png" src="_images/0e0086ad3061549642581283c497cd55297b59b34d5a96ac014860b8b6ab48ff.png" />
+</div>
+</div>
+<p>Los coeficientes de correlación de Spearman (ρ) obtenidos para las ventanas de 7, 14, 21 y 28 días (<strong>0.417, 0.372, 0.343 y 0.332</strong>, respectivamente) indican una relación débil y poco significativa entre la volatilidad y los retornos logarítmicos absolutos en cada periodo. Este comportamiento coincide con lo observado en los gráficos de dispersión, donde no se aprecia una tendencia clara: aunque algunos puntos muestran aumentos simultáneos en ambas variables, no se identifica un patrón consistente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">databtc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="base-de-datos-para-modelos">
+<h2><strong>Base de datos para modelos</strong><a class="headerlink" href="#base-de-datos-para-modelos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Precio</th>
+      <th>RetornoLog</th>
+      <th>Volatilidad_7d</th>
+      <th>Volatilidad_14d</th>
+      <th>Volatilidad_21d</th>
+      <th>Volatilidad_28d</th>
+    </tr>
+    <tr>
+      <th>Fecha</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018-01-29</th>
+      <td>11251.00</td>
+      <td>-0.054395</td>
+      <td>0.690572</td>
+      <td>1.522041</td>
+      <td>1.371132</td>
+      <td>1.367343</td>
+    </tr>
+    <tr>
+      <th>2018-01-30</th>
+      <td>10237.51</td>
+      <td>-0.094399</td>
+      <td>1.005329</td>
+      <td>1.143258</td>
+      <td>1.410198</td>
+      <td>1.351515</td>
+    </tr>
+    <tr>
+      <th>2018-01-31</th>
+      <td>10285.10</td>
+      <td>0.004638</td>
+      <td>0.895483</td>
+      <td>1.142321</td>
+      <td>1.395937</td>
+      <td>1.348702</td>
+    </tr>
+    <tr>
+      <th>2018-02-01</th>
+      <td>9224.52</td>
+      <td>-0.108831</td>
+      <td>1.127962</td>
+      <td>1.259500</td>
+      <td>1.383471</td>
+      <td>1.388793</td>
+    </tr>
+    <tr>
+      <th>2018-02-02</th>
+      <td>8873.03</td>
+      <td>-0.038849</td>
+      <td>1.117298</td>
+      <td>1.223554</td>
+      <td>1.365130</td>
+      <td>1.292856</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2025-02-02</th>
+      <td>99796.00</td>
+      <td>-0.024038</td>
+      <td>0.319643</td>
+      <td>0.426355</td>
+      <td>0.448729</td>
+      <td>0.480990</td>
+    </tr>
+    <tr>
+      <th>2025-02-03</th>
+      <td>94495.21</td>
+      <td>-0.054579</td>
+      <td>0.486452</td>
+      <td>0.504795</td>
+      <td>0.508193</td>
+      <td>0.498576</td>
+    </tr>
+    <tr>
+      <th>2025-02-04</th>
+      <td>101367.77</td>
+      <td>0.070206</td>
+      <td>0.764874</td>
+      <td>0.545473</td>
+      <td>0.581348</td>
+      <td>0.528412</td>
+    </tr>
+    <tr>
+      <th>2025-02-05</th>
+      <td>97589.30</td>
+      <td>-0.037987</td>
+      <td>0.779201</td>
+      <td>0.565460</td>
+      <td>0.580056</td>
+      <td>0.542300</td>
+    </tr>
+    <tr>
+      <th>2025-02-06</th>
+      <td>98329.13</td>
+      <td>0.007552</td>
+      <td>0.776559</td>
+      <td>0.567925</td>
+      <td>0.580981</td>
+      <td>0.532689</td>
+    </tr>
+  </tbody>
+</table>
+<p>2566 rows × 6 columns</p>
+</div></div></div>
+</div>
+<p>Luego de realizar todo el preprocesamiento, se construyó una base de datos que incluye variables como la fecha, precio, retornos y las volatilidades por cada ventana. Posteriormente, se eliminaron todas las filas con datos faltantes, las cuales surgieron como consecuencia natural de la generación de rezagos y horizontes de predicción. En total, se descartaron <strong>28</strong> observaciones, equivalentes al <strong>1.07%</strong> del conjunto original.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/datamodelos.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><div style="text-align: center;">Mini Proyecto 2</div></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="MODELOS.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Modelos de predicción de la volatilidad para cada ventana (7, 14, 21 y 28 días)</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias"><strong>Librerías</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-la-base-de-datos"><strong>Sobre la base de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-las-variables"><strong>Sobre las variables</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precio"><strong>Precio</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estadisticas-descriptivas"><strong>Estadísticas descriptivas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-los-datos"><strong>Distribución de los datos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#picos"><strong>Picos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-temporal"><strong>Serie temporal</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retornos-logaritmicos"><strong>Retornos logarítmicos</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Estadísticas descriptivas</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Distribución de los datos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Picos</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Serie temporal</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#autocorrelacion-acf-de-los-retornos-retornolog"><strong>Autocorrelación (ACF) de los retornos (RetornoLog)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#autocorrelacion-acf-de-los-cuadrados-de-los-retornos-retornolog"><strong>Autocorrelación (ACF) de los cuadrados de los retornos (RetornoLog)</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocesamiento-y-calculo-de-features"><strong>Preprocesamiento y cálculo de features</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-retornos-logaritmicos"><strong>Cálculo de retornos logarítmicos</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-la-volatilidad-historica-variable-objetivo"><strong>Cálculo de la volatilidad histórica (variable objetivo)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-la-variable"><strong>Sobre la variable</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>Distribución de los datos</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#volatilidades-por-ventanas"><strong>Volatilidades por ventanas</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#correlacion-de-precio-con-volatilidad-por-ventanas"><strong>Correlación de Precio con Volatilidad (por ventanas)</strong></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#correlacion-de-la-volatilidad-por-ventanas-con-el-valor-absoluto-de-los-retornos-logaritmicos"><strong>Correlación de la Volatilidad (por ventanas) con el Valor Absoluto de los Retornos Logarítmicos</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#base-de-datos-para-modelos"><strong>Base de datos para modelos</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valentina Esther Cabrera De la Rosa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
