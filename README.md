@@ -12,8 +12,6 @@ Este proyecto implementa un sistema para **predecir la volatilidad del Bitcoin**
 - **Tests unitarios** para validar API y modelos  
 - **Contenerización con Docker** para despliegue  
 
-![CI](https://github.com/<USUARIO>/<REPO>/actions/workflows/ci.yml/badge.svg)
-
 ## Objetivos principales
 
 - Implementar una **validación temporal adecuada** para series de tiempo  
@@ -36,7 +34,7 @@ Este proyecto implementa un sistema para **predecir la volatilidad del Bitcoin**
 
 ## Estructura del Proyecto
 
-\`\`\`
+```
 MINIPROYECTO2_VOLATILIDAD/
 ├── .github/
 │   └── workflows/
@@ -62,7 +60,7 @@ MINIPROYECTO2_VOLATILIDAD/
 ├── README.md                         # Documentación del proyecto
 ├── requirements_api.txt              # Dependencias mínimas para producción
 └── requirements.txt                  # Todas las dependencias del proyecto
-\`\`\`
+```
 
 ## Instrucciones de uso
 
@@ -70,14 +68,14 @@ MINIPROYECTO2_VOLATILIDAD/
 
 **Clonar el repositorio**
 
-\`\`\`bash
+```bash
 git clone <URL_REPOSITORIO>
 cd MINIPROYECTO2_VOLATILIDAD
-\`\`\`
+```
 
 **Configurar entorno virtual e instalar dependencias**
 
-\`\`\`bash
+```bash
 python -m venv btc_env
 source btc_env/bin/activate  # Linux/Mac
 btc_env\Scripts\activate     # Windows
@@ -85,15 +83,15 @@ btc_env\Scripts\activate     # Windows
 pip install -r requirements.txt
 pip install -r requirements_api.txt
 pip install -r apirequirements.txt
-\`\`\`
+```
 
 ## Ejecución de la API
 
 ### Iniciar servidor de desarrollo
 
-\`\`\`bash
+```bash
 uvicorn app.api:app --host 0.0.0.0 --port 8000 --reload
-\`\`\`
+```
 
 ### Acceso a la API
 
@@ -104,10 +102,10 @@ uvicorn app.api:app --host 0.0.0.0 --port 8000 --reload
 
 ### Construir y ejecutar contenedor
 
-\`\`\`bash
+```bash
 docker build -t btc-volatility-api .
 docker run -p 8000:8000 btc-volatility-api
-\`\`\`
+```
 
 Accede a la API en: [http://localhost:8000](http://localhost:8000)
 
@@ -115,28 +113,28 @@ Accede a la API en: [http://localhost:8000](http://localhost:8000)
 
 ### Predicción con modelo de 7 días
 
-\`\`\`bash
+```bash
 curl -X POST "http://localhost:8000/predecir" \
   -H "Content-Type: application/json" \
   -d '{
     "lags": [0.5, 0.6, 0.55, 0.58, 0.57, 0.59, 0.6],
     "tipo_volatilidad": 7
   }'
-\`\`\`
+```
 
-> La API proporciona toda la información necesaria para su correcta implementación, incluyendo cómo y cuántos valores enviar según la ventana de días.
+La API proporciona toda la información necesaria para su correcta implementación, incluyendo cómo y cuántos valores enviar según la ventana de días.
 
 ## Ejecución de tests
 
 ### Ejecutar todos los tests
 
-\`\`\`bash
+```bash
 python -m pytest tests/ -v
-\`\`\`
+```
 
 ### Ejecutar tests individuales
 
-\`\`\`bash
+```bash
 python -m pytest tests/test_api.py -v
 python -m pytest tests/test_model.py -v
-\`\`\`
+```
